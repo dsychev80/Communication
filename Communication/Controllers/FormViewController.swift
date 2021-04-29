@@ -50,35 +50,3 @@ class FormViewController: UIViewController {
         ])
     }
 }
-
-
-
-
-//=====================ToDelete==================================
-
-//    lazy private var infoLabel: UILabel = {
-//        let label = UILabel()
-//        label.layer.cornerRadius = 10
-//        label.font = UIFont(name: "PartyLetPlain", size: 24)
-//        label.text = "No data passed"
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//
-//    private lazy var buttonDismiss: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("Close", for: .normal)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.addTarget(self, action: #selector(doDismiss(_:)), for: .touchUpInside)
-//        return button
-//    }()
-
-//        self.view.addSubview(infoLabel)
-//        self.view.addSubview(buttonDismiss)
-
-//            infoLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-//            infoLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-//            buttonDismiss.heightAnchor.constraint(equalToConstant: 40),
-//            buttonDismiss.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
-//            buttonDismiss.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -16),
-//            buttonDismiss.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50)

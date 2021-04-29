@@ -1,15 +1,12 @@
 import UIKit
 
-#if !os(tvOS)
-@available(tvOS, unavailable)
 public class KeyboardLayoutConstraint: NSLayoutConstraint {
     
     private var offset : CGFloat = 0
     private var keyboardVisibleHeight : CGFloat = 0
     
-    @available(tvOS, unavailable)
-    override public func awakeFromNib() {
-        super.awakeFromNib()
+    public override init() {
+        super.init()
         
         offset = constant
         
@@ -27,13 +24,14 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
         if let userInfo = notification.userInfo {
             if let frameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
                 let frame = frameValue.cgRectValue
-                keyboardVisibleHeight = frame.size.height
+                keyboardVisibleHeight = -frame.size.height
             }
             
             self.updateConstant()
+            
             switch (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber, userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber) {
             case let (.some(duration), .some(curve)):
-                
+
                 let options = UIView.AnimationOptions(rawValue: curve.uintValue)
                 
                 UIView.animate(
@@ -41,18 +39,20 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
                     delay: 0,
                     options: options,
                     animations: {
-//                        UIApplication.shared.keyWindow?.layoutIfNeeded()
-                        UIApplication.shared.windows.first?.layoutIfNeeded()
+                        guard let keyWindow = UIApplication.shared.connectedScenes
+                                .filter({$0.activationState == .foregroundActive})
+                                .map({$0 as? UIWindowScene})
+                                .compactMap({$0})
+                                .first?.windows
+                                .filter({$0.isKeyWindow}).first else { return }
+                        keyWindow.layoutIfNeeded()
                         return
                     }, completion: { finished in
                 })
             default:
-                
                 break
             }
-            
         }
-        
     }
     
     @objc func keyboardWillHideNotification(_ notification: NSNotification) {
@@ -63,16 +63,20 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
             
             switch (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber, userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber) {
             case let (.some(duration), .some(curve)):
-                
                 let options = UIView.AnimationOptions(rawValue: curve.uintValue)
-                
                 UIView.animate(
                     withDuration: TimeInterval(duration.doubleValue),
                     delay: 0,
                     options: options,
                     animations: {
-//                        UIApplication.shared.keyWindow?.layoutIfNeeded()
-                        UIApplication.shared.windows.first?.layoutIfNeeded()
+                        let keyWindow = UIApplication.shared.connectedScenes
+                                .filter({$0.activationState == .foregroundActive})
+                                .map({$0 as? UIWindowScene})
+                                .compactMap({$0})
+                                .first?.windows
+                                .filter({$0.isKeyWindow}).first
+                        
+                        keyWindow?.layoutIfNeeded()
                         return
                     }, completion: { finished in
                 })
@@ -85,6 +89,4 @@ public class KeyboardLayoutConstraint: NSLayoutConstraint {
     func updateConstant() {
         self.constant = offset + keyboardVisibleHeight
     }
-    
 }
-#endif

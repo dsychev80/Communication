@@ -50,6 +50,7 @@ class MainViewController: UIViewController {
         view.addSubview(formView)
         
         // FIXME: Need to deactivate constraints too
+        #warning("Need to deactivate constraints")
         if !dataManager.isMaxChilds() {
             view.addSubview(addChildButton)
         }
@@ -58,8 +59,24 @@ class MainViewController: UIViewController {
     }
     
     private func makeConstraints() {
+        
+        let topViewConstraint = KeyboardLayoutConstraint(item: formView,
+                                                         attribute: .top,
+                                                         relatedBy: .equal,
+                                                         toItem: self.view.safeAreaLayoutGuide,
+                                                         attribute: .top,
+                                                         multiplier: 1,
+                                                         constant: 1)
+        
+        let childViewBottomConstraint = KeyboardLayoutConstraint(item: childView,
+                                                                 attribute: .bottom,
+                                                                 relatedBy: .equal,
+                                                                 toItem: self.view,
+                                                                 attribute: .bottom,
+                                                                 multiplier: 1,
+                                                                 constant: 1)
         NSLayoutConstraint.activate([
-            formView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            topViewConstraint,
             formView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             formView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             formView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.4),
@@ -67,10 +84,10 @@ class MainViewController: UIViewController {
             addChildButton.centerXAnchor.constraint(equalTo: formView.centerXAnchor),
             addChildButton.widthAnchor.constraint(equalToConstant: 85),
             addChildButton.heightAnchor.constraint(equalToConstant: 35),
-            childView.topAnchor.constraint(equalTo: addChildButton.bottomAnchor, constant: 5),
+            childView.topAnchor.constraint(equalTo: addChildButton.bottomAnchor),
             childView.leadingAnchor.constraint(equalTo: formView.leadingAnchor),
             childView.trailingAnchor.constraint(equalTo: formView.trailingAnchor),
-            childView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
+            childViewBottomConstraint
         ])
     }
     

@@ -72,7 +72,8 @@ class ChildCell: UITableViewCell {
         self.ageTextField.text = "\(data.age)"
         ageTextField.delegate = textFieldDelegate
         nameTextField.delegate = textFieldDelegate
-        ageTextField.addDoneCancelToolbar(onDone: (target: textFieldDelegate, action: #selector(DataManager.saveChild(_:))))
+        ageTextField.addDoneCancelToolbar()
+//        ageTextField.addDoneCancelToolbar(onDone: (target: textFieldDelegate, action: #selector(DataManager.saveChild(_:))))
     }
     
     private func setupLayout() {
@@ -83,15 +84,20 @@ class ChildCell: UITableViewCell {
         contentView.addSubview(ageLabel)
         contentView.addSubview(ageTextField)
         
-        let bottomViewConstraint = KeyboardLayoutConstraint(item: cellView, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 1)
+//        let bottomViewConstraint = KeyboardLayoutConstraint(item: cellView,
+//                                                            attribute: .bottom,
+//                                                            relatedBy: .equal,
+//                                                            toItem: contentView,
+//                                                            attribute: .bottom,
+//                                                            multiplier: 1,
+//                                                            constant: -5)
         
         NSLayoutConstraint.activate([
             cellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-//            cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            bottomViewConstraint,
-            
+            cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
+//            bottomViewConstraint,
             nameLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 5),
             nameLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 5),
             nameLabel.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.5),
@@ -110,36 +116,4 @@ class ChildCell: UITableViewCell {
             ageTextField.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
-    
-    
 }
-
-//extension ChildCell: UITextFieldDelegate {
-//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//        print(#function)
-//        print(textField.text ?? "not")
-//        return true
-//    }
-//
-//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-//        print(#function)
-//        print(textField.text ?? "no")
-//        return true
-//    }
-//
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        print(#function)
-//        print(textField.text ?? "none")
-//        textField.resignFirstResponder()
-//        return true
-//    }
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        guard let oldString = textField.text else { return false}
-//        if oldString.count > 12 {
-//            print(string.count)
-//            return false
-//        }
-//        print("\(oldString.count)")
-//        return true
-//    }
-//}
