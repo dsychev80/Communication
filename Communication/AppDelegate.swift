@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Communication
-//
-//  Created by Denis Sychev on 4/13/21.
-//
-
 import UIKit
 
 @main
