@@ -84,32 +84,28 @@ class ChildCell: UITableViewCell {
         contentView.addSubview(ageLabel)
         contentView.addSubview(ageTextField)
         
-//        let bottomViewConstraint = KeyboardLayoutConstraint(item: cellView,
-//                                                            attribute: .bottom,
-//                                                            relatedBy: .equal,
-//                                                            toItem: contentView,
-//                                                            attribute: .bottom,
-//                                                            multiplier: 1,
-//                                                            constant: -5)
-        
         NSLayoutConstraint.activate([
+            
             cellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-//            bottomViewConstraint,
+            
             nameLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 5),
             nameLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 5),
             nameLabel.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.5),
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
+            
             nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             nameTextField.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             nameTextField.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.5),
             nameTextField.heightAnchor.constraint(equalToConstant: 20),
+            
             ageLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor),
             ageLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             ageLabel.widthAnchor.constraint(equalTo: nameLabel.widthAnchor),
             ageLabel.heightAnchor.constraint(equalToConstant: 20),
+            
             ageTextField.topAnchor.constraint(equalTo: ageLabel.bottomAnchor),
             ageTextField.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
             ageTextField.widthAnchor.constraint(equalTo: nameTextField.widthAnchor),

@@ -41,13 +41,6 @@ public class AddChildFormView: UIView {
         textField.backgroundColor = .white
         textField.translatesAutoresizingMaskIntoConstraints = false
         
-//        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textField.frame.size.width, height: 44))
-//        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped(_:)))
-//        toolBar.barStyle = .default
-//        toolBar.sizeToFit()
-//        toolBar.items = [doneButton]
-//        toolBar.setItems([doneButton], animated: true)
-//        textField.inputAccessoryView = toolBar
         textField.addDoneCancelToolbar()
         
         return textField
@@ -78,6 +71,7 @@ public class AddChildFormView: UIView {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
+            
             contentView.topAnchor.constraint(equalTo: topAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor),
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),

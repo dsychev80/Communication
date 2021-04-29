@@ -60,34 +60,21 @@ class MainViewController: UIViewController {
     
     private func makeConstraints() {
         
-        let topViewConstraint = KeyboardLayoutConstraint(item: formView,
-                                                         attribute: .top,
-                                                         relatedBy: .equal,
-                                                         toItem: self.view.safeAreaLayoutGuide,
-                                                         attribute: .top,
-                                                         multiplier: 1,
-                                                         constant: 1)
-        
-        let childViewBottomConstraint = KeyboardLayoutConstraint(item: childView,
-                                                                 attribute: .bottom,
-                                                                 relatedBy: .equal,
-                                                                 toItem: self.view,
-                                                                 attribute: .bottom,
-                                                                 multiplier: 1,
-                                                                 constant: 1)
         NSLayoutConstraint.activate([
-            topViewConstraint,
+            KeyboardLayoutConstraint(item: formView, attribute: .top, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 1),
             formView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             formView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             formView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.4),
+            
             addChildButton.topAnchor.constraint(equalTo: formView.bottomAnchor, constant: 1),
             addChildButton.centerXAnchor.constraint(equalTo: formView.centerXAnchor),
             addChildButton.widthAnchor.constraint(equalToConstant: 85),
             addChildButton.heightAnchor.constraint(equalToConstant: 35),
+            
             childView.topAnchor.constraint(equalTo: addChildButton.bottomAnchor),
             childView.leadingAnchor.constraint(equalTo: formView.leadingAnchor),
             childView.trailingAnchor.constraint(equalTo: formView.trailingAnchor),
-            childViewBottomConstraint
+            KeyboardLayoutConstraint(item: childView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 1)
         ])
     }
     
