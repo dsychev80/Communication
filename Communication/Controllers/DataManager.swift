@@ -22,7 +22,7 @@ final class DataManager: NSObject {
     }
     
     public func isMaxChilds() -> Bool {
-        return self.person.returnChilds().count > 5
+        return self.person.returnChilds().count >= 5
     }
 }
 
@@ -35,7 +35,7 @@ extension DataManager: UITableViewDataSource {
         self.tableView = tableView
         let cell = tableView.dequeueReusableCell(withIdentifier: ChildCell.identifier) as! ChildCell
         let childInfo = childs[indexPath.row]
-        cell.configureWithData(childInfo, textFieldDelegate: self)
+        cell.configureWithData(childInfo, textFieldDelegate: self, dataManager: self)
         return cell
     }
 }
@@ -54,8 +54,9 @@ extension DataManager: UITableViewDelegate {
 
 extension DataManager: UITextFieldDelegate {
     
-    @objc func saveChild(_ sender: UITextField) {
-        sender.resignFirstResponder()
+    func saveChild(_ child: Child) {
+        self.person.addChild(withName: child.name, andAge: child.age)
+        self.tableView?.reloadData()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -70,12 +71,8 @@ extension DataManager: UITextFieldDelegate {
         }
 
         guard let oldString = textField.text else { return false }
-        
-        if oldString.count > 12 {
-            #warning("delete this print")
-            print(string.count)
-            return false
-        }
+        guard oldString.count < 12 else { return false }
+
         return true
     }
     
@@ -84,7 +81,7 @@ extension DataManager: UITextFieldDelegate {
             if let child  = self.editingChild {
                 return child
             } else {
-                // shit code but it works
+                #warning("Code Smell!!! Change this code latter")
                 let superview = textField.superview?.superview as! ChildCell
                 return superview.child
             }
@@ -94,11 +91,8 @@ extension DataManager: UITextFieldDelegate {
         
         if textField.tag == 0 {
             person.addChild(withName: newValue, andAge: child.age)
-            #warning("delete these prints")
-            print("name saved")
         } else if textField.tag == 1 {
             person.addChild(withName: child.name, andAge: UInt(newValue) ?? 0)
-            print("age saved")
         }
         self.tableView?.reloadData()
         textField.resignFirstResponder()

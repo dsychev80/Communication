@@ -8,6 +8,7 @@ class ChildCell: UITableViewCell {
     }()
     
     public var child: Child?
+    private var dataManager: DataManager!
     
     private var cellView: UIView = {
         let view = UIView()
@@ -66,14 +67,21 @@ class ChildCell: UITableViewCell {
     }
     
     // MARK: - Methods
-    public func configureWithData(_ data: Child, textFieldDelegate: UITextFieldDelegate) {
+    public func configureWithData(_ data: Child, textFieldDelegate: UITextFieldDelegate, dataManager: DataManager) {
         self.child = data
         self.nameTextField.text = data.name
         self.ageTextField.text = "\(data.age)"
         ageTextField.delegate = textFieldDelegate
         nameTextField.delegate = textFieldDelegate
-        ageTextField.addDoneCancelToolbar()
-//        ageTextField.addDoneCancelToolbar(onDone: (target: textFieldDelegate, action: #selector(DataManager.saveChild(_:))))
+        self.dataManager = dataManager
+        ageTextField.addDoneCancelToolbar(onDone: (target: self, action: #selector(saveChild)))
+    }
+    
+    @objc func saveChild() {
+        ageTextField.resignFirstResponder()
+        let child = Child(name: nameTextField.text ?? "", age: UInt(ageTextField.text ?? "0")!)
+        print("Child name: \(child.name), age:\(child.age)")
+        dataManager.saveChild(child)
     }
     
     private func setupLayout() {

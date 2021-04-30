@@ -44,18 +44,26 @@ class MainViewController: UIViewController {
         addSubviews()
         makeConstraints()
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        addButton()
+    }
 
     // MARK: - Methods
     private func addSubviews() {
         view.addSubview(formView)
         
-        // FIXME: Need to deactivate constraints too
-        #warning("Need to deactivate constraints")
+        addButton()   
+        view.addSubview(childView)
+    }
+    
+    private func addButton() {
         if !dataManager.isMaxChilds() {
             view.addSubview(addChildButton)
+        } else {
+            addChildButton.isHidden = true
         }
-        
-        view.addSubview(childView)
     }
     
     private func makeConstraints() {
