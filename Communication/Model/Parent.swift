@@ -1,8 +1,8 @@
 import Foundation
 
 struct Child: Hashable {
-    var name: String
-    var age: UInt
+    var name: String = ""
+    var age: UInt = 0
 }
 
 class Parent {
@@ -21,10 +21,28 @@ class Parent {
         self.age = age
     }
     
+    // FIXME: Remove business logic into a separate class "ParentController"
     public func addChild(withName name: String, andAge age: UInt) {
-        guard !childs.contains(where: { $0.name == name }) else { return }
+        defer {
+            removeChild(withName: "")
+        }
+        
         let child = Child(name: name, age: age)
+        
+        guard !childs.contains(where: { $0 == child }) else { return }
+        
+        if let childWithSameName = childs.first(where: { $0.name == child.name }) {
+            self.update(oldChild: childWithSameName, withNew: child)
+            return
+        }
+        
         childs.insert(child)
+        
+        return
+    }
+    
+    public func addNewChild() {
+        self.childs.insert(Child())
     }
     
     public func removeChild(withName name: String) {
@@ -35,7 +53,7 @@ class Parent {
         }
     }
     
-    public func update(oldChild: Child, withNew newChild: Child ) {
+    private func update(oldChild: Child, withNew newChild: Child ) {
         for child in childs {
             if child.name == oldChild.name {
                 childs.remove(oldChild)

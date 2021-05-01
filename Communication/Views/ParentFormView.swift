@@ -68,6 +68,14 @@ public class ParentFormView: UIView {
         return textField
     }()
     
+    private var ageLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Введите возраст:"
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private var ageTextField: UITextField = {
         let textField = UITextField()
         textField.layer.borderWidth = 0.5
@@ -101,6 +109,7 @@ public class ParentFormView: UIView {
         self.addSubview(nameTextField)
         self.addSubview(secondnameLabel)
         self.addSubview(secondnameTextField)
+        self.addSubview(ageLabel)
         self.addSubview(ageTextField)
     }
     
@@ -112,7 +121,7 @@ public class ParentFormView: UIView {
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            surnameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            surnameLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             surnameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             surnameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
             surnameLabel.heightAnchor.constraint(equalToConstant: 40),
@@ -142,7 +151,12 @@ public class ParentFormView: UIView {
             secondnameTextField.trailingAnchor.constraint(equalTo: surnameLabel.trailingAnchor),
             secondnameTextField.heightAnchor.constraint(equalToConstant: 40),
             
-            ageTextField.topAnchor.constraint(equalTo: secondnameTextField.bottomAnchor, constant: 10),
+            ageLabel.topAnchor.constraint(equalTo: secondnameTextField.bottomAnchor, constant: -10),
+            ageLabel.leadingAnchor.constraint(equalTo: surnameLabel.leadingAnchor),
+            ageLabel.trailingAnchor.constraint(equalTo: surnameLabel.trailingAnchor),
+            ageLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            ageTextField.topAnchor.constraint(equalTo: ageLabel.bottomAnchor, constant: -10),
             ageTextField.leadingAnchor.constraint(equalTo: surnameLabel.leadingAnchor),
             ageTextField.trailingAnchor.constraint(equalTo: surnameLabel.trailingAnchor),
             ageTextField.heightAnchor.constraint(equalToConstant: 40),

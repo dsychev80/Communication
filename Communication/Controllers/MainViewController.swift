@@ -33,7 +33,6 @@ class MainViewController: UIViewController {
         self.formViewController = formViewVC
         let childTableVC = ChildTableViewController(withDataManager: self.dataManager)
         self.childTableViewController = childTableVC
-        
     }
     
     override func viewDidLoad() {
@@ -87,7 +86,7 @@ class MainViewController: UIViewController {
     }
     
     @objc func doAddChildForm(_ sender: UIButton?) {
-        dataManager.addChild()
+        dataManager.addNewChild()
         childTableViewController.reloadTable()
     }
 }

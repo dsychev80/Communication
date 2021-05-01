@@ -17,12 +17,25 @@ final class DataManager: NSObject {
     }
     
     // MARK: - Methods
-    public func addChild() {
-        self.person.addChild(withName: "", andAge: 0)
+    public func addNewChild() {
+        self.person.addNewChild()
     }
     
     public func isMaxChilds() -> Bool {
         return self.person.returnChilds().count >= 5
+    } 
+    
+    public func saveChild(_ child: Child) {
+        if child.name != "" && child.age != 0 {
+            self.person.addChild(withName: child.name, andAge: child.age)
+        }
+        self.person.removeChild(withName: "")
+        self.tableView?.reloadData()
+    }
+    
+    public func deleteChild(_ child: Child) {
+        self.person.removeChild(withName: child.name)
+        self.tableView?.reloadData()
     }
 }
 
@@ -53,11 +66,6 @@ extension DataManager: UITableViewDelegate {
 }
 
 extension DataManager: UITextFieldDelegate {
-    
-    func saveChild(_ child: Child) {
-        self.person.addChild(withName: child.name, andAge: child.age)
-        self.tableView?.reloadData()
-    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 

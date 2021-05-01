@@ -54,6 +54,15 @@ class ChildCell: UITableViewCell {
         return textField
     }()
     
+    public lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = UIColor(displayP3Red: 18/255, green: 53/255, blue: 68/255, alpha: 1)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 10
+        button.setTitle("Удалить", for: .normal)
+        button.addTarget(self, action: #selector(deleteButtonTapped(_:)), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -84,6 +93,12 @@ class ChildCell: UITableViewCell {
         dataManager.saveChild(child)
     }
     
+    @objc func deleteButtonTapped(_ sender: UIButton) {
+        if let child = self.child {
+            self.dataManager.deleteChild(child)
+        }
+    }
+    
     private func setupLayout() {
         
         contentView.addSubview(cellView)
@@ -91,6 +106,7 @@ class ChildCell: UITableViewCell {
         contentView.addSubview(nameTextField)
         contentView.addSubview(ageLabel)
         contentView.addSubview(ageTextField)
+        contentView.addSubview(deleteButton)
         
         NSLayoutConstraint.activate([
             
@@ -99,10 +115,15 @@ class ChildCell: UITableViewCell {
             cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             
-            nameLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 5),
+            nameLabel.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 3),
             nameLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 5),
             nameLabel.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.5),
             nameLabel.heightAnchor.constraint(equalToConstant: 20),
+            
+            deleteButton.topAnchor.constraint(equalTo: cellView.topAnchor, constant: 15),
+            deleteButton.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -15),
+            deleteButton.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -15),
+            deleteButton.widthAnchor.constraint(equalTo: cellView.heightAnchor, multiplier: 0.8),
             
             nameTextField.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             nameTextField.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
