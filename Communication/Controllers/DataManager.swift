@@ -10,10 +10,13 @@ final class DataManager: NSObject {
     private var tableView: UITableView?
     private var editingChild: Child?
     
+    private var dataIsUpdated: ()->()
+    
     // MARK: - Initialization
-    override init() {
+    init(withClosure closure: @escaping ()->()) {
         let mockData = MockData()
         self.person = mockData.getPerson()
+        self.dataIsUpdated = closure
     }
     
     // MARK: - Methods
@@ -36,6 +39,7 @@ final class DataManager: NSObject {
     public func deleteChild(_ child: Child) {
         self.person.removeChild(withName: child.name)
         self.tableView?.reloadData()
+        self.dataIsUpdated()
     }
 }
 

@@ -3,7 +3,7 @@ import UIKit
 class MainViewController: UIViewController {
     
     // MARK: - Properties
-    private let dataManager: DataManager = DataManager()
+    private var dataManager: DataManager!
     private var formViewController: FormViewController!
     private var childTableViewController: ChildTableViewController!
     
@@ -29,6 +29,10 @@ class MainViewController: UIViewController {
     override func loadView() {
         super.loadView()
         
+        self.dataManager = DataManager {
+            self.addChildButton.isHidden = !self.addChildButton.isHidden
+        }
+        
         let formViewVC = FormViewController(withDataManager: self.dataManager)
         self.formViewController = formViewVC
         let childTableVC = ChildTableViewController(withDataManager: self.dataManager)
@@ -46,29 +50,29 @@ class MainViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        addButton()
+        addChild()
     }
 
     // MARK: - Methods
     private func addSubviews() {
         view.addSubview(formView)
-        
-        addButton()   
+        addChild()   
         view.addSubview(childView)
     }
     
-    private func addButton() {
+    private func addChild() {
         if !dataManager.isMaxChilds() {
             view.addSubview(addChildButton)
         } else {
             addChildButton.isHidden = true
+            self.view.setNeedsDisplay()
         }
     }
     
     private func makeConstraints() {
         
         NSLayoutConstraint.activate([
-            KeyboardLayoutConstraint(item: formView, attribute: .top, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .top, multiplier: 1, constant: 1),
+            formView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             formView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             formView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
             formView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.4),
