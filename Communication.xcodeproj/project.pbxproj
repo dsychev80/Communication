@@ -58,9 +58,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		846D2D9D26DBB0B7002A07C0 /* images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		846D5AAA26255FC70040E86A = {
 			isa = PBXGroup;
 			children = (
+				846D2D9D26DBB0B7002A07C0 /* images */,
 				846D2D9C26DB945A002A07C0 /* README.md */,
 				846D5AB526255FC70040E86A /* Communication */,
 				846D5AB426255FC70040E86A /* Products */,
