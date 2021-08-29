@@ -27,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		840F038D263B023C00265D56 /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
+		846D2D9C26DB945A002A07C0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		846D5AB326255FC70040E86A /* Communication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Communication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		846D5AB626255FC70040E86A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		846D5AB826255FC70040E86A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = Communication/SceneDelegate.swift; sourceTree = SOURCE_ROOT; };
@@ -60,6 +61,7 @@
 		846D5AAA26255FC70040E86A = {
 			isa = PBXGroup;
 			children = (
+				846D2D9C26DB945A002A07C0 /* README.md */,
 				846D5AB526255FC70040E86A /* Communication */,
 				846D5AB426255FC70040E86A /* Products */,
 			);
@@ -353,6 +355,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V2TV677NUR;
 				INFOPLIST_FILE = Communication/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -372,6 +375,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V2TV677NUR;
 				INFOPLIST_FILE = Communication/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
